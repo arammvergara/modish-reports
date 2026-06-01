@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modish Furnishing — Social Media Weekly Report</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; font-size: 14px; background: #fff; color: #1a1a1a; padding: 32px 40px; max-width: 900px; margin: 0 auto; }
+
+  .dash-header { padding-bottom: 12px; border-bottom: 2px solid #B89C5E; margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .dash-title { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+  .dash-sub { font-size: 13px; color: #666; margin-top: 3px; }
+  .badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 500; background: #F4F1EE; color: #8B6F3E; border: 0.5px solid #B89C5E; }
+
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+  .metric { background: #f5f5f3; border-radius: 8px; padding: 14px 16px; }
+  .metric-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+  .metric-value { font-size: 22px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+  .metric-change { font-size: 12px; display: flex; align-items: center; gap: 3px; }
+  .up { color: #2E7D32; }
+  .down { color: #C62828; }
+
+  .section-label { font-size: 11px; font-weight: 600; color: #B89C5E; letter-spacing: .08em; text-transform: uppercase; margin: 20px 0 10px; }
+
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .chart-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 16px; }
+  .chart-title { font-size: 13px; font-weight: 500; color: #666; margin-bottom: 10px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; font-size: 12px; color: #666; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+  .platform-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; table-layout: fixed; }
+  .platform-table th { font-size: 11px; font-weight: 500; color: #888; text-align: left; padding: 6px 10px; border-bottom: 0.5px solid #ddd; }
+  .platform-table th.r { text-align: right; }
+  .platform-table td { padding: 9px 10px; border-bottom: 0.5px solid #eee; color: #1a1a1a; vertical-align: top; }
+  .platform-table td.r { text-align: right; }
+  .platform-table tr:last-child td { border-bottom: none; }
+  .plat-name { font-weight: 500; display: flex; align-items: center; gap: 7px; }
+  .plat-bar-wrap { height: 4px; background: #eee; border-radius: 2px; margin-top: 4px; }
+  .plat-bar { height: 4px; background: #B89C5E; border-radius: 2px; }
+
+  .insights { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .insight-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 16px; }
+  .insight-head { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .insight-item { font-size: 13px; color: #555; margin-bottom: 7px; padding-left: 12px; border-left: 2px solid #B89C5E; line-height: 1.5; }
+  .insight-item:last-child { margin-bottom: 0; }
+
+  .next-steps { margin-bottom: 20px; }
+  .next-steps ol { padding-left: 18px; }
+  .next-steps li { font-size: 13px; color: #444; margin-bottom: 7px; line-height: 1.5; }
+
+  .footer-note { font-size: 11px; color: #999; border-top: 0.5px solid #ddd; padding-top: 12px; line-height: 1.6; }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 16px; }
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .charts-row, .insights { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="dash-header">
+  <div>
+    <div class="dash-title">Social media weekly report</div>
+    <div class="dash-sub">26 May – 1 June 2026 &nbsp;·&nbsp; vs 19–25 May 2026</div>
+  </div>
+  <span class="badge">Modish Furnishing GA4</span>
+</div>
+
+<div class="metrics">
+  <div class="metric">
+    <div class="metric-label">Total sessions</div>
+    <div class="metric-value">5,458</div>
+    <div class="metric-change up"><i class="ti ti-trending-up"></i> +23.7% WoW</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Total users</div>
+    <div class="metric-value">4,600</div>
+    <div class="metric-change up"><i class="ti ti-trending-up"></i> +24.1% WoW</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Conversions</div>
+    <div class="metric-value">9,079</div>
+    <div class="metric-change up"><i class="ti ti-trending-up"></i> +29.3% WoW</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Social revenue</div>
+    <div class="metric-value">£9,725</div>
+    <div class="metric-change up"><i class="ti ti-trending-up"></i> +187% WoW</div>
+  </div>
+</div>
+
+<div class="section-label">Channel performance</div>
+
+<div class="charts-row">
+  <div class="chart-card">
+    <div class="chart-title">Sessions by channel</div>
+    <div class="legend">
+      <span><span class="leg-dot" style="background:#B89C5E"></span>Paid Social</span>
+      <span><span class="leg-dot" style="background:#96887D"></span>Organic Social</span>
+    </div>
+    <div style="position:relative;width:100%;height:180px;">
+      <canvas id="sessChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Conversions by channel</div>
+    <div class="legend">
+      <span><span class="leg-dot" style="background:#B89C5E"></span>Paid Social</span>
+      <span><span class="leg-dot" style="background:#96887D"></span>Organic Social</span>
+    </div>
+    <div style="position:relative;width:100%;height:180px;">
+      <canvas id="convChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="chart-card" style="margin-bottom:20px;">
+  <div class="chart-title">Engagement: avg session duration (seconds)</div>
+  <div class="legend">
+    <span><span class="leg-dot" style="background:#B89C5E"></span>Paid Social</span>
+    <span><span class="leg-dot" style="background:#96887D"></span>Organic Social</span>
+  </div>
+  <div style="position:relative;width:100%;height:120px;">
+    <canvas id="durChart"></canvas>
+  </div>
+</div>
+
+<div class="section-label">Platform breakdown</div>
+
+<table class="platform-table">
+  <thead>
+    <tr>
+      <th style="width:38%">Platform</th>
+      <th class="r" style="width:14%">Sessions</th>
+      <th class="r" style="width:10%">WoW</th>
+      <th class="r" style="width:16%">Conversions</th>
+      <th class="r" style="width:22%">Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="plat-name"><i class="ti ti-brand-facebook" style="color:#B89C5E;font-size:16px"></i>Facebook / Meta</div>
+        <div class="plat-bar-wrap"><div class="plat-bar" style="width:94%"></div></div>
+      </td>
+      <td class="r">5,120</td>
+      <td class="r up">+25.1%</td>
+      <td class="r">8,471</td>
+      <td class="r">£9,725</td>
+    </tr>
+    <tr>
+      <td>
+        <div class="plat-name"><i class="ti ti-brand-pinterest" style="color:#B89C5E;font-size:16px"></i>Pinterest</div>
+        <div class="plat-bar-wrap"><div class="plat-bar" style="width:5.3%"></div></div>
+      </td>
+      <td class="r">290</td>
+      <td class="r up">+3.5%</td>
+      <td class="r">498</td>
+      <td class="r">—</td>
+    </tr>
+    <tr>
+      <td>
+        <div class="plat-name"><i class="ti ti-brand-instagram" style="color:#B89C5E;font-size:16px"></i>Instagram</div>
+        <div class="plat-bar-wrap"><div class="plat-bar" style="width:0.4%"></div></div>
+      </td>
+      <td class="r">24</td>
+      <td class="r" style="color:#999">new</td>
+      <td class="r">49</td>
+      <td class="r">—</td>
+    </tr>
+    <tr>
+      <td>
+        <div class="plat-name"><i class="ti ti-brand-tiktok" style="color:#B89C5E;font-size:16px"></i>TikTok</div>
+        <div class="plat-bar-wrap"><div class="plat-bar" style="width:0.1%"></div></div>
+      </td>
+      <td class="r">7</td>
+      <td class="r up">+600%</td>
+      <td class="r">7</td>
+      <td class="r">—</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Highlights &amp; actions</div>
+
+<div class="insights">
+  <div class="insight-card">
+    <div class="insight-head"><i class="ti ti-star" style="color:#B89C5E;font-size:15px"></i>What worked</div>
+    <div class="insight-item">Paid Social revenue hit £9,725 — up +187%, the strongest week recorded.</div>
+    <div class="insight-item">Paid bounce rate fell -60%, signalling better ad-to-page relevance.</div>
+    <div class="insight-item">Organic session duration up +41% — content quality improving.</div>
+    <div class="insight-item">TikTok registered first meaningful traffic — an early signal.</div>
+  </div>
+  <div class="insight-card">
+    <div class="insight-head"><i class="ti ti-arrow-right" style="color:#B89C5E;font-size:15px"></i>Recommended actions</div>
+    <div class="insight-item">Scale top Paid Social creatives while the revenue momentum holds.</div>
+    <div class="insight-item">Post 3 native Instagram assets this week — organic IG is untapped.</div>
+    <div class="insight-item">Publish one TikTok room-reveal to build on the early signal.</div>
+    <div class="insight-item">Plan a Pinterest campaign ahead of the summer garden push.</div>
+  </div>
+</div>
+
+<div class="section-label">Next steps this week</div>
+
+<div class="next-steps">
+  <ol>
+    <li>Review top Paid Social ad creative — identify best-performing formats for scaling.</li>
+    <li>Plan at least 1 TikTok room-reveal post (align with dining / spring living editorial).</li>
+    <li>Schedule 3 Instagram organic posts with product-in-home creative.</li>
+    <li>Check June influencer collaboration brief — ensure alignment with garden / summer push.</li>
+    <li>Flag revenue attribution gap for Organic Social to analytics team.</li>
+  </ol>
+</div>
+
+<div class="footer-note">
+  Source: Google Analytics 4 via Supermetrics &nbsp;·&nbsp; Period: 26 May–1 June 2026 &nbsp;·&nbsp; Compared against: 19–25 May 2026 &nbsp;·&nbsp; Currency: GBP<br>
+  Revenue data unavailable for Organic Social sources. Conversion counts included. Facebook/Meta totals include facebook, facebook.com, m.facebook.com and l.facebook.com.
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  const gridColor = 'rgba(0,0,0,0.06)';
+  const tickColor = '#888';
+  const baseOpts = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.y.toLocaleString() } } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 12, family: 'Arial' } } },
+      y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 12, family: 'Arial' }, callback: v => v.toLocaleString() } }
+    }
+  };
+
+  new Chart(document.getElementById('sessChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Paid Social', 'Organic Social'],
+      datasets: [{ data: [5032, 426], backgroundColor: ['#B89C5E', '#96887D'], borderRadius: 4, borderSkipped: false }]
+    },
+    options: { ...baseOpts }
+  });
+
+  new Chart(document.getElementById('convChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Paid Social', 'Organic Social'],
+      datasets: [{ data: [8138, 941], backgroundColor: ['#B89C5E', '#96887D'], borderRadius: 4, borderSkipped: false }]
+    },
+    options: { ...baseOpts }
+  });
+
+  new Chart(document.getElementById('durChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Paid Social', 'Organic Social'],
+      datasets: [{ data: [69, 94], backgroundColor: ['#B89C5E', '#96887D'], borderRadius: 4, borderSkipped: false }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.x + 's' } } },
+      scales: {
+        x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { size: 12, family: 'Arial' }, callback: v => v + 's' } },
+        y: { grid: { display: false }, ticks: { color: tickColor, font: { size: 12, family: 'Arial' } } }
+      }
+    }
+  });
+</script>
+</body>
+</html>
