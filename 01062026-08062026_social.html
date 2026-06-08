@@ -8,6 +8,363 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; font-size: 14px; background: #fff; color: #1a1a1a; padding: 32px 40px; max-width: 900px; margin: 0 auto; }
+
+  .dash-header { padding-bottom: 12px; border-bottom: 2px solid #B89C5E; margin-bottom: 20px; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .dash-title { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+  .dash-sub { font-size: 13px; color: #666; margin-top: 3px; }
+  .badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 500; background: #F4F1EE; color: #8B6F3E; border: 0.5px solid #B89C5E; }
+
+  .section-label { font-size: 11px; font-weight: 600; color: #B89C5E; letter-spacing: .08em; text-transform: uppercase; margin: 20px 0 10px; }
+
+  .platform-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+  .plat-card { background: #f5f5f3; border-radius: 8px; padding: 14px 16px; }
+  .plat-card-header { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
+  .plat-card-name { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+  .plat-metric { margin-bottom: 6px; }
+  .plat-metric:last-child { margin-bottom: 0; }
+  .plat-metric-label { font-size: 11px; color: #888; }
+  .plat-metric-value { font-size: 16px; font-weight: 600; color: #1a1a1a; }
+  .plat-metric-change { font-size: 11px; display: flex; align-items: center; gap: 3px; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .kpi { background: #f5f5f3; border-radius: 8px; padding: 12px 14px; }
+  .kpi-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+  .kpi-value { font-size: 20px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
+  .kpi-prev { font-size: 11px; color: #aaa; margin-bottom: 2px; }
+  .kpi-change { font-size: 12px; display: flex; align-items: center; gap: 3px; }
+
+  .up { color: #2E7D32; }
+  .down { color: #C62828; }
+  .na { color: #999; }
+
+  .platform-section { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+  .platform-section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 0.5px solid #eee; }
+  .platform-section-title { font-size: 15px; font-weight: 600; color: #1a1a1a; }
+
+  .chart-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+  .chart-title { font-size: 13px; font-weight: 500; color: #666; margin-bottom: 10px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; font-size: 12px; color: #666; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+  .insights { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .insight-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 16px; }
+  .insight-head { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .insight-item { font-size: 13px; color: #555; margin-bottom: 7px; padding-left: 12px; border-left: 2px solid #B89C5E; line-height: 1.5; }
+  .insight-item:last-child { margin-bottom: 0; }
+
+  .footer-note { font-size: 11px; color: #999; border-top: 0.5px solid #ddd; padding-top: 12px; line-height: 1.6; }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 16px; }
+    .platform-cards { grid-template-columns: repeat(2, 1fr); }
+    .insights { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
-<body><p1>Modish Social Native Analytics - 1-8 Jun 2026</p></body></html>
+<body>
+
+<div class="dash-header">
+  <div>
+    <div class="dash-title">Social media weekly report</div>
+    <div class="dash-sub">1 Jun – 8 Jun 2026 &nbsp;·&nbsp; vs 24 May – 1 Jun 2026</div>
+  </div>
+  <span class="badge">Native Analytics</span>
+</div>
+
+<div class="section-label">Platform snapshot</div>
+
+<div class="platform-cards">
+  <div class="plat-card">
+    <div class="plat-card-header">
+      <i class="ti ti-brand-instagram" style="color:#B89C5E;font-size:18px"></i>
+      <span class="plat-card-name">Instagram</span>
+    </div>
+    <div class="plat-metric">
+      <div class="plat-metric-label">Followers</div>
+      <div class="plat-metric-value">11,795</div>
+      <div class="plat-metric-change na">— stable WoW</div>
+    </div>
+    <div class="plat-metric">
+      <div class="plat-metric-label">Profile views</div>
+      <div class="plat-metric-value">127,755</div>
+      <div class="plat-metric-change up"><i class="ti ti-trending-up"></i> +9.6%</div>
+    </div>
+  </div>
+  <div class="plat-card">
+    <div class="plat-card-header">
+      <i class="ti ti-brand-facebook" style="color:#B89C5E;font-size:18px"></i>
+      <span class="plat-card-name">Facebook</span>
+    </div>
+    <div class="plat-metric">
+      <div class="plat-metric-label">Reach</div>
+      <div class="plat-metric-value">43,948</div>
+      <div class="plat-metric-change down"><i class="ti ti-trending-down"></i> -8.4%</div>
+    </div>
+    <div class="plat-metric">
+      <div class="plat-metric-label">Engagements</div>
+      <div class="plat-metric-value">3,802</div>
+      <div class="plat-metric-change down"><i class="ti ti-trending-down"></i> -30.1%</div>
+    </div>
+  </div>
+  <div class="plat-card">
+    <div class="plat-card-header">
+      <i class="ti ti-brand-pinterest" style="color:#B89C5E;font-size:18px"></i>
+      <span class="plat-card-name">Pinterest</span>
+    </div>
+    <div class="plat-metric">
+      <div class="plat-metric-label">Impressions</div>
+      <div class="plat-metric-value">16,093</div>
+      <div class="plat-metric-change down"><i class="ti ti-trending-down"></i> -38.2%</div>
+    </div>
+    <div class="plat-metric">
+      <div class="plat-metric-label">Saves</div>
+      <div class="plat-metric-value">28</div>
+      <div class="plat-metric-change down"><i class="ti ti-trending-down"></i> -50.0%</div>
+    </div>
+  </div>
+  <div class="plat-card">
+    <div class="plat-card-header">
+      <i class="ti ti-brand-tiktok" style="color:#B89C5E;font-size:18px"></i>
+      <span class="plat-card-name">TikTok</span>
+    </div>
+    <div class="plat-metric">
+      <div class="plat-metric-label">Followers</div>
+      <div class="plat-metric-value">1,502</div>
+      <div class="plat-metric-change na">— stable WoW</div>
+    </div>
+    <div class="plat-metric">
+      <div class="plat-metric-label">Video views</div>
+      <div class="plat-metric-value">2,757</div>
+      <div class="plat-metric-change down"><i class="ti ti-trending-down"></i> -5.0%</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Instagram</div>
+<div class="platform-section">
+  <div class="platform-section-header">
+    <i class="ti ti-brand-instagram" style="color:#B89C5E;font-size:18px"></i>
+    <span class="platform-section-title">Instagram Insights</span>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Followers</div>
+      <div class="kpi-value">11,795</div>
+      <div class="kpi-prev">prev: 11,795</div>
+      <div class="kpi-change na">— stable WoW</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Reach</div>
+      <div class="kpi-value">518</div>
+      <div class="kpi-prev">prev: 5,159</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -90.0%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Profile views</div>
+      <div class="kpi-value">127,755</div>
+      <div class="kpi-prev">prev: 116,535</div>
+      <div class="kpi-change up"><i class="ti ti-trending-up"></i> +9.6%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Website clicks</div>
+      <div class="kpi-value">—</div>
+      <div class="kpi-prev">&nbsp;</div>
+      <div class="kpi-change na">No data</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Facebook</div>
+<div class="platform-section">
+  <div class="platform-section-header">
+    <i class="ti ti-brand-facebook" style="color:#B89C5E;font-size:18px"></i>
+    <span class="platform-section-title">Facebook Insights</span>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Reach</div>
+      <div class="kpi-value">43,948</div>
+      <div class="kpi-prev">prev: 47,973</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -8.4%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Post engagements</div>
+      <div class="kpi-value">3,802</div>
+      <div class="kpi-prev">prev: 5,439</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -30.1%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Page visits</div>
+      <div class="kpi-value">549</div>
+      <div class="kpi-prev">prev: 764</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -28.1%</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Pinterest</div>
+<div class="platform-section">
+  <div class="platform-section-header">
+    <i class="ti ti-brand-pinterest" style="color:#B89C5E;font-size:18px"></i>
+    <span class="platform-section-title">Pinterest Organic</span>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Impressions</div>
+      <div class="kpi-value">16,093</div>
+      <div class="kpi-prev">prev: 26,035</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -38.2%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Engagements</div>
+      <div class="kpi-value">540</div>
+      <div class="kpi-prev">prev: 885</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -39.0%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Pin clicks</div>
+      <div class="kpi-value">462</div>
+      <div class="kpi-prev">prev: 731</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -36.8%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Outbound clicks</div>
+      <div class="kpi-value">34</div>
+      <div class="kpi-prev">prev: 61</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -44.3%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Saves</div>
+      <div class="kpi-value">28</div>
+      <div class="kpi-prev">prev: 56</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -50.0%</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">TikTok</div>
+<div class="platform-section">
+  <div class="platform-section-header">
+    <i class="ti ti-brand-tiktok" style="color:#B89C5E;font-size:18px"></i>
+    <span class="platform-section-title">TikTok Organic</span>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Followers</div>
+      <div class="kpi-value">1,502</div>
+      <div class="kpi-prev">prev: 1,502</div>
+      <div class="kpi-change na">— stable WoW</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Video views</div>
+      <div class="kpi-value">2,757</div>
+      <div class="kpi-prev">prev: 2,902</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -5.0%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Profile views</div>
+      <div class="kpi-value">33</div>
+      <div class="kpi-prev">prev: 33</div>
+      <div class="kpi-change na">— stable WoW</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Engagement</div>
+      <div class="kpi-value">25</div>
+      <div class="kpi-prev">prev: 16</div>
+      <div class="kpi-change up"><i class="ti ti-trending-up"></i> +56.3%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Likes</div>
+      <div class="kpi-value">16</div>
+      <div class="kpi-prev">prev: 10</div>
+      <div class="kpi-change up"><i class="ti ti-trending-up"></i> +60.0%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Shares</div>
+      <div class="kpi-value">9</div>
+      <div class="kpi-prev">prev: 6</div>
+      <div class="kpi-change up"><i class="ti ti-trending-up"></i> +50.0%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">New followers</div>
+      <div class="kpi-value">9,008</div>
+      <div class="kpi-prev">prev: 13,506</div>
+      <div class="kpi-change down"><i class="ti ti-trending-down"></i> -33.3%</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Reach &amp; impressions by platform</div>
+<div class="chart-card">
+  <div class="chart-title">Weekly reach / impressions — this period vs previous</div>
+  <div class="legend">
+    <span><span class="leg-dot" style="background:#B89C5E"></span>This period (1–8 Jun)</span>
+    <span><span class="leg-dot" style="background:#D4C4A8"></span>Previous period (24 May–1 Jun)</span>
+  </div>
+  <div style="position:relative;width:100%;height:240px;">
+    <canvas id="reachChart"></canvas>
+  </div>
+</div>
+
+<div class="section-label">Highlights &amp; actions</div>
+<div class="insights">
+  <div class="insight-card">
+    <div class="insight-head"><i class="ti ti-star" style="color:#B89C5E;font-size:15px"></i>What worked</div>
+    <div class="insight-item">Instagram profile views up +9.6% to 127,755 — account discovery is strong even with lower reach, suggesting good SEO / hashtag visibility.</div>
+    <div class="insight-item">TikTok engagement up +56.3% and likes up +60% WoW — content resonance improved despite stable follower count and slightly fewer video views.</div>
+    <div class="insight-item">TikTok shares increased +50% (9 vs 6) — a positive signal that existing content is being shared more actively.</div>
+  </div>
+  <div class="insight-card">
+    <div class="insight-head"><i class="ti ti-arrow-right" style="color:#B89C5E;font-size:15px"></i>What to improve</div>
+    <div class="insight-item">Instagram reach collapsed -90% (518 vs 5,159) — this strongly suggests very little or no feed content was posted this week. Posting must resume immediately.</div>
+    <div class="insight-item">Pinterest impressions fell -38.2% and saves dropped -50% — the pinning cadence needs to increase; aim for at least 5–7 fresh pins this week.</div>
+    <div class="insight-item">Facebook engagement down -30.1% and page visits down -28.1% — review post frequency and creative format for the coming week.</div>
+    <div class="insight-item">Instagram website clicks still returning no data — confirm the link in bio is live and UTM-tracked.</div>
+  </div>
+</div>
+
+<div class="footer-note">
+  Source: Instagram Insights · Facebook Insights · Pinterest Organic · TikTok Organic via Supermetrics &nbsp;·&nbsp; Period: 1–8 June 2026 &nbsp;·&nbsp; Compared against: 24 May–1 June 2026
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  new Chart(document.getElementById('reachChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Instagram\n(reach)', 'Facebook\n(reach)', 'Pinterest\n(impressions)', 'TikTok\n(video views)'],
+      datasets: [
+        {
+          label: 'This period (1–8 Jun)',
+          data: [518, 43948, 16093, 2757],
+          backgroundColor: '#B89C5E',
+          borderRadius: 4,
+          borderSkipped: false
+        },
+        {
+          label: 'Prev period (24 May–1 Jun)',
+          data: [5159, 47973, 26035, 2902],
+          backgroundColor: '#D4C4A8',
+          borderRadius: 4,
+          borderSkipped: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: { color: '#888', font: { size: 12, family: 'Arial' }, boxWidth: 12 }
+        },
+        tooltip: { callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toLocaleString() } }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#888', font: { size: 11, family: 'Arial' } } },
+        y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#888', font: { size: 12, family: 'Arial' }, callback: v => v.toLocaleString() } }
+      }
+    }
+  });
+</script>
+</body>
+</html>
