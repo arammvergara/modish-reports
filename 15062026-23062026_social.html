@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modish Furnishing — Native Social Analytics | 15 Jun – 23 Jun 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f9f9f7; color: #1a1a1a; font-size: 14px; }
+
+  /* HEADER */
+  .header {
+    background: #1a1a1a;
+    border-bottom: 3px solid #B89C5E;
+    padding: 28px 40px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header-left { display: flex; flex-direction: column; gap: 4px; }
+  .header-brand { color: #B89C5E; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .header-title { color: #fff; font-size: 22px; font-weight: 700; }
+  .header-period { color: #999; font-size: 13px; margin-top: 2px; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .badge {
+    background: #B89C5E;
+    color: #1a1a1a;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 3px;
+  }
+  .report-date { color: #666; font-size: 12px; }
+
+  /* MAIN */
+  .main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  /* SECTION HEADERS */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #B89C5E;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* PLATFORM SNAPSHOT CARDS */
+  .snapshot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+  .snapshot-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .snapshot-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .snapshot-card.ig::before { background: linear-gradient(90deg, #f58529, #dd2a7b, #8134af); }
+  .snapshot-card.fb::before { background: #1877F2; }
+  .snapshot-card.pin::before { background: #E60023; }
+  .snapshot-card.tik::before { background: #010101; }
+
+  .platform-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .platform-icon { font-size: 18px; }
+  .platform-icon.ig { color: #dd2a7b; }
+  .platform-icon.fb { color: #1877F2; }
+  .platform-icon.pin { color: #E60023; }
+  .platform-icon.tik { color: #010101; }
+  .platform-name { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+
+  .snap-metric { margin-bottom: 12px; }
+  .snap-metric:last-child { margin-bottom: 0; }
+  .snap-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+  .snap-value { font-size: 22px; font-weight: 700; color: #1a1a1a; line-height: 1.1; }
+  .snap-prev { font-size: 11px; color: #aaa; margin-top: 2px; }
+  .snap-change { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; margin-top: 3px; }
+  .pos { background: #e8f5e9; color: #2E7D32; }
+  .neg { background: #ffebee; color: #C62828; }
+  .neu { background: #f5f5f5; color: #666; }
+
+  /* PLATFORM SECTIONS */
+  .platform-section { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 24px; margin-bottom: 24px; }
+  .platform-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .platform-section-title { font-size: 16px; font-weight: 700; }
+
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+  .metric-card { background: #f5f5f3; border-radius: 5px; padding: 14px 16px; }
+  .metric-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .metric-value { font-size: 24px; font-weight: 700; color: #1a1a1a; }
+  .metric-prev { font-size: 11px; color: #aaa; margin-top: 3px; }
+  .metric-change { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 3px; margin-top: 4px; }
+  .metric-null { color: #ccc; font-size: 13px; font-style: italic; }
+
+  /* CHART */
+  .chart-section { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 24px; margin-bottom: 24px; }
+  .chart-wrapper { position: relative; height: 280px; }
+
+  /* HIGHLIGHTS */
+  .highlights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
+  .highlight-card { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 20px; }
+  .highlight-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+  .highlight-title.worked { color: #2E7D32; }
+  .highlight-title.improve { color: #C62828; }
+  .highlight-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; font-size: 13px; line-height: 1.5; color: #333; }
+  .highlight-item:last-child { margin-bottom: 0; }
+  .bullet-w { color: #2E7D32; font-weight: 700; flex-shrink: 0; }
+  .bullet-i { color: #C62828; font-weight: 700; flex-shrink: 0; }
+
+  /* FOOTER */
+  .footer { background: #1a1a1a; color: #666; font-size: 11px; padding: 20px 40px; text-align: center; line-height: 1.8; }
+  .footer strong { color: #B89C5E; }
+
+  @media (max-width: 900px) {
+    .snapshot-grid { grid-template-columns: repeat(2, 1fr); }
+    .highlights-grid { grid-template-columns: 1fr; }
+    .header { padding: 20px 20px 16px; }
+    .main { padding: 20px 16px 40px; }
+  }
+  @media (max-width: 600px) {
+    .snapshot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-brand">Modish Furnishing</div>
+    <div class="header-title">Native Social Analytics</div>
+    <div class="header-period">Sun 15 Jun – Mon 23 Jun 2026 &nbsp;·&nbsp; vs Sun 7 Jun – Mon 15 Jun 2026</div>
+  </div>
+  <div class="header-right">
+    <span class="badge">Native Analytics</span>
+    <span class="report-date">Generated 23 Jun 2026</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- PLATFORM SNAPSHOT -->
+  <div class="section-title">Platform Snapshot</div>
+  <div class="snapshot-grid">
+
+    <!-- Instagram -->
+    <div class="snapshot-card ig">
+      <div class="platform-header">
+        <i class="ti ti-brand-instagram platform-icon ig"></i>
+        <span class="platform-name">Instagram</span>
+      </div>
+      <div class="snap-metric">
+        <div class="snap-label">Followers</div>
+        <div class="snap-value">11,917</div>
+        <div class="snap-prev">prev: 11,917</div>
+        <span class="snap-change neu">0%</span>
+      </div>
+      <div class="snap-metric">
+        <div class="snap-label">Reach</div>
+        <div class="snap-value">81</div>
+        <div class="snap-prev">prev: 6,845</div>
+        <span class="snap-change neg">−98.8%</span>
+      </div>
+    </div>
+
+    <!-- Facebook -->
+    <div class="snapshot-card fb">
+      <div class="platform-header">
+        <i class="ti ti-brand-facebook platform-icon fb"></i>
+        <span class="platform-name">Facebook</span>
+      </div>
+      <div class="snap-metric">
+        <div class="snap-label">Post Engagements</div>
+        <div class="snap-value">5,692</div>
+        <div class="snap-prev">prev: 5,291</div>
+        <span class="snap-change pos">+7.6%</span>
+      </div>
+      <div class="snap-metric">
+        <div class="snap-label">Page Visits</div>
+        <div class="snap-value">885</div>
+        <div class="snap-prev">prev: 906</div>
+        <span class="snap-change neg">−2.3%</span>
+      </div>
+    </div>
+
+    <!-- Pinterest -->
+    <div class="snapshot-card pin">
+      <div class="platform-header">
+        <i class="ti ti-brand-pinterest platform-icon pin"></i>
+        <span class="platform-name">Pinterest</span>
+      </div>
+      <div class="snap-metric">
+        <div class="snap-label">Impressions</div>
+        <div class="snap-value">21,103</div>
+        <div class="snap-prev">prev: 41,901</div>
+        <span class="snap-change neg">−49.6%</span>
+      </div>
+      <div class="snap-metric">
+        <div class="snap-label">Outbound Clicks</div>
+        <div class="snap-value">148</div>
+        <div class="snap-prev">prev: 100</div>
+        <span class="snap-change pos">+48.0%</span>
+      </div>
+    </div>
+
+    <!-- TikTok -->
+    <div class="snapshot-card tik">
+      <div class="platform-header">
+        <i class="ti ti-brand-tiktok platform-icon tik"></i>
+        <span class="platform-name">TikTok</span>
+      </div>
+      <div class="snap-metric">
+        <div class="snap-label">Video Views</div>
+        <div class="snap-value">5,171</div>
+        <div class="snap-prev">prev: 6,320</div>
+        <span class="snap-change neg">−18.2%</span>
+      </div>
+      <div class="snap-metric">
+        <div class="snap-label">Total Engagement</div>
+        <div class="snap-value">25</div>
+        <div class="snap-prev">prev: 38</div>
+        <span class="snap-change neg">−34.2%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTAGRAM -->
+  <div class="platform-section">
+    <div class="platform-section-header">
+      <i class="ti ti-brand-instagram platform-icon ig" style="font-size:20px;"></i>
+      <span class="platform-section-title">Instagram Insights</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Followers</div>
+        <div class="metric-value">11,917</div>
+        <div class="metric-prev">prev: 11,917</div>
+        <span class="metric-change neu">0%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Reach</div>
+        <div class="metric-value">81</div>
+        <div class="metric-prev">prev: 6,845</div>
+        <span class="metric-change neg">−98.8%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Impressions</div>
+        <div class="metric-value metric-null">—</div>
+        <div class="metric-prev">prev: —</div>
+        <span class="metric-change neu">N/A</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Profile Views</div>
+        <div class="metric-value">113,631</div>
+        <div class="metric-prev">prev: 195,079</div>
+        <span class="metric-change neg">−41.8%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Website Clicks</div>
+        <div class="metric-value metric-null">—</div>
+        <div class="metric-prev">prev: —</div>
+        <span class="metric-change neu">N/A</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACEBOOK -->
+  <div class="platform-section">
+    <div class="platform-section-header">
+      <i class="ti ti-brand-facebook platform-icon fb" style="font-size:20px;"></i>
+      <span class="platform-section-title">Facebook Insights</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Page Fans</div>
+        <div class="metric-value metric-null">—</div>
+        <div class="metric-prev">prev: —</div>
+        <span class="metric-change neu">N/A</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Page Impressions</div>
+        <div class="metric-value metric-null">—</div>
+        <div class="metric-prev">prev: —</div>
+        <span class="metric-change neu">N/A</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Unique Reach</div>
+        <div class="metric-value metric-null">—</div>
+        <div class="metric-prev">prev: —</div>
+        <span class="metric-change neu">N/A</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Post Engagements</div>
+        <div class="metric-value">5,692</div>
+        <div class="metric-prev">prev: 5,291</div>
+        <span class="metric-change pos">+7.6%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Page Visits</div>
+        <div class="metric-value">885</div>
+        <div class="metric-prev">prev: 906</div>
+        <span class="metric-change neg">−2.3%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PINTEREST -->
+  <div class="platform-section">
+    <div class="platform-section-header">
+      <i class="ti ti-brand-pinterest platform-icon pin" style="font-size:20px;"></i>
+      <span class="platform-section-title">Pinterest Organic</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Impressions</div>
+        <div class="metric-value">21,103</div>
+        <div class="metric-prev">prev: 41,901</div>
+        <span class="metric-change neg">−49.6%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Engagements</div>
+        <div class="metric-value">941</div>
+        <div class="metric-prev">prev: 1,132</div>
+        <span class="metric-change neg">−16.9%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Outbound Clicks</div>
+        <div class="metric-value">148</div>
+        <div class="metric-prev">prev: 100</div>
+        <span class="metric-change pos">+48.0%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Pin Clicks</div>
+        <div class="metric-value">827</div>
+        <div class="metric-prev">prev: 938</div>
+        <span class="metric-change neg">−11.8%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Saves</div>
+        <div class="metric-value">30</div>
+        <div class="metric-prev">prev: 64</div>
+        <span class="metric-change neg">−53.1%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIKTOK -->
+  <div class="platform-section">
+    <div class="platform-section-header">
+      <i class="ti ti-brand-tiktok platform-icon tik" style="font-size:20px;"></i>
+      <span class="platform-section-title">TikTok Organic</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Followers</div>
+        <div class="metric-value">1,507</div>
+        <div class="metric-prev">prev: 1,507</div>
+        <span class="metric-change neu">0%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Video Views</div>
+        <div class="metric-value">5,171</div>
+        <div class="metric-prev">prev: 6,320</div>
+        <span class="metric-change neg">−18.2%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Profile Views</div>
+        <div class="metric-value">18</div>
+        <div class="metric-prev">prev: 44</div>
+        <span class="metric-change neg">−59.1%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Total Engagement</div>
+        <div class="metric-value">25</div>
+        <div class="metric-prev">prev: 38</div>
+        <span class="metric-change neg">−34.2%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Likes</div>
+        <div class="metric-value">23</div>
+        <div class="metric-prev">prev: 36</div>
+        <span class="metric-change neg">−36.1%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Comments</div>
+        <div class="metric-value">2</div>
+        <div class="metric-prev">prev: 0</div>
+        <span class="metric-change pos">New</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Shares</div>
+        <div class="metric-value">0</div>
+        <div class="metric-prev">prev: 2</div>
+        <span class="metric-change neg">−100%</span>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">New Followers</div>
+        <div class="metric-value">10,545</div>
+        <div class="metric-prev">prev: 13,533</div>
+        <span class="metric-change neg">−22.1%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-section">
+    <div class="section-title">This Period vs Previous Period — Key Metrics by Platform</div>
+    <div class="chart-wrapper">
+      <canvas id="compChart"></canvas>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div class="section-title">Highlights &amp; Actions</div>
+  <div class="highlights-grid">
+    <div class="highlight-card">
+      <div class="highlight-title worked">✦ What Worked</div>
+      <div class="highlight-item">
+        <span class="bullet-w">↑</span>
+        <span><strong>Pinterest outbound clicks up +48%</strong> (100 → 148). Despite a drop in overall impressions, more people who saw pins are clicking through to the site — a strong signal that content is resonating with a more intent-driven audience. Prioritise pinning more product-focused content to capitalise on this.</span>
+      </div>
+      <div class="highlight-item">
+        <span class="bullet-w">↑</span>
+        <span><strong>Facebook post engagements up +7.6%</strong> (5,291 → 5,692). Engagement continued to grow week-on-week, suggesting the content cadence on Facebook is landing well with this audience. Sustain current posting rhythm and consider boosting top posts.</span>
+      </div>
+      <div class="highlight-item">
+        <span class="bullet-w">→</span>
+        <span><strong>Follower counts holding steady</strong> on both Instagram (11,917) and TikTok (1,507). No follower loss is a baseline positive — the focus now is on reactivating reach to convert existing audience into engagement.</span>
+      </div>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-title improve">✦ What to Improve</div>
+      <div class="highlight-item">
+        <span class="bullet-i">↓</span>
+        <span><strong>Instagram reach collapsed −98.8%</strong> (6,845 → 81). This is an anomalous drop that warrants investigation — likely a data reporting issue for a partial period or a significant reduction in posting. Check whether content was published consistently this week and verify via the native Instagram app.</span>
+      </div>
+      <div class="highlight-item">
+        <span class="bullet-i">↓</span>
+        <span><strong>Pinterest impressions down −49.6%</strong> (41,901 → 21,103). The sharp fall in impressions may reflect reduced posting frequency or seasonal algorithm shifts. Re-pin existing top performers and increase fresh content to rebuild reach.</span>
+      </div>
+      <div class="highlight-item">
+        <span class="bullet-i">↓</span>
+        <span><strong>TikTok engagement and profile views declining</strong> — total engagement fell −34.2% and profile views dropped −59.1%. With video views also down −18.2%, the priority is publishing new video content this week to reactivate the algorithm. Aim for at least 3 posts before next Monday.</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div><strong>Sources:</strong> Instagram Insights (IGI) · Facebook Insights (FB) · Pinterest Organic (PIO2) · TikTok Business Analytics (TIKBA) via Supermetrics</div>
+  <div style="margin-top:4px;"><strong>This period:</strong> Sun 15 Jun – Mon 23 Jun 2026 &nbsp;·&nbsp; <strong>Comparison:</strong> Sun 7 Jun – Mon 15 Jun 2026</div>
+  <div style="margin-top:4px;">Modish Furnishing — modishfurnishing.co.uk · Glasgow, UK</div>
+</div>
+
+<script>
+(function() {
+  const gold = '#B89C5E';
+  const dark = '#1a1a1a';
+
+  const ctx = document.getElementById('compChart').getContext('2d');
+
+  const labels = [
+    'IG Reach', 'IG Profile Views',
+    'FB Engagements', 'FB Page Visits',
+    'Pin Impressions', 'Pin Outbound Clicks',
+    'TikTok Video Views', 'TikTok Engagement'
+  ];
+
+  const thisPeriod  = [81,      113631, 5692, 885, 21103, 148, 5171, 25];
+  const prevPeriod  = [6845,    195079, 5291, 906, 41901, 100, 6320, 38];
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'This Period (15–23 Jun)',
+          data: thisPeriod,
+          backgroundColor: gold,
+          borderRadius: 3
+        },
+        {
+          label: 'Previous Period (7–15 Jun)',
+          data: prevPeriod,
+          backgroundColor: '#ddd',
+          borderRadius: 3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: { font: { family: 'Arial', size: 12 }, color: dark, padding: 16 }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return ' ' + context.dataset.label + ': ' + context.parsed.y.toLocaleString('en-GB');
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { family: 'Arial', size: 10 }, color: '#666' }
+        },
+        y: {
+          grid: { color: '#eee' },
+          ticks: {
+            font: { family: 'Arial', size: 10 },
+            color: '#666',
+            callback: function(v) {
+              if (v >= 1000) return (v/1000).toFixed(0) + 'k';
+              return v;
+            }
+          }
+        }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
