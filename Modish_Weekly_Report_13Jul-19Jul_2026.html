@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modish Furnishing — Weekly Social Report · 13 Jul – 19 Jul 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --gold: #B89C5E;
+    --cream: #F4F1EE;
+    --dark: #1a1a1a;
+    --muted: #888;
+    --muted2: #666;
+    --positive: #2E7D32;
+    --negative: #C62828;
+    --border: #e5e0da;
+    --card-bg: #fff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: var(--cream); color: var(--dark); font-size: 14px; line-height: 1.5; }
+
+  .header { background: var(--dark); color: #fff; padding: 28px 40px 0; border-bottom: 4px solid var(--gold); }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-bottom: 20px; }
+  .header-left h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; color: var(--gold); }
+  .header-left .subtitle { font-size: 13px; color: #ccc; margin-top: 4px; }
+  .header-left .date-range { font-size: 15px; color: #fff; margin-top: 8px; font-weight: 600; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-start; margin-top: 6px; }
+  .badge { background: rgba(184,156,94,0.18); border: 1px solid var(--gold); color: var(--gold); font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 600; letter-spacing: 0.3px; }
+
+  .main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 20px; margin-top: 36px; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .kpi-card { background: var(--card-bg); border-radius: 10px; padding: 22px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid var(--border); }
+  .kpi-card .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 8px; }
+  .kpi-card .value { font-size: 28px; font-weight: 800; color: var(--dark); line-height: 1; }
+  .kpi-card .prev { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .kpi-card .wow { font-size: 12px; font-weight: 700; margin-top: 4px; }
+  .wow.pos { color: var(--positive); }
+  .wow.neg { color: var(--negative); }
+  .wow.neutral { color: var(--muted); }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  thead tr { background: var(--dark); color: #fff; }
+  thead th { padding: 12px 14px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; white-space: nowrap; }
+  thead th:not(:first-child) { text-align: right; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr.wow-row { background: #f8f6f3; }
+  tbody tr.wow-row td { font-size: 12px; font-weight: 700; }
+  tbody tr:hover { background: #f5f2ef; }
+  td { padding: 11px 14px; font-size: 13px; white-space: nowrap; }
+  td:not(:first-child) { text-align: right; }
+  td.channel-label { font-weight: 700; color: var(--dark); }
+  td.paid { color: #5c3d11; }
+  td.organic { color: #1a4a2e; }
+  td.pos { color: var(--positive); font-weight: 700; }
+  td.neg { color: var(--negative); font-weight: 700; }
+  td.neutral { color: var(--muted); font-weight: 700; }
+  .footnote { font-size: 11px; color: var(--muted); margin-top: 10px; font-style: italic; }
+
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 700px) { .chart-grid { grid-template-columns: 1fr; } }
+  .chart-card { background: var(--card-bg); border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid var(--border); }
+  .chart-card h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--muted); margin-bottom: 16px; }
+
+  .highlights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .highlights-grid { grid-template-columns: 1fr; } }
+  .highlight-card { background: var(--card-bg); border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid var(--border); }
+  .highlight-card h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 14px; }
+  .highlight-card.wins h3 { color: var(--positive); }
+  .highlight-card.issues h3 { color: var(--negative); }
+  .highlight-card ul { list-style: none; }
+  .highlight-card ul li { padding: 7px 0; font-size: 13px; border-bottom: 1px solid var(--border); color: var(--dark); display: flex; gap: 8px; align-items: flex-start; }
+  .highlight-card ul li:last-child { border-bottom: none; }
+  .highlight-card ul li::before { flex-shrink: 0; margin-top: 1px; }
+  .wins li::before { content: "✓"; color: var(--positive); font-weight: 700; }
+  .issues li::before { content: "!"; color: var(--negative); font-weight: 700; }
+
+  .next-steps { background: var(--card-bg); border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid var(--border); }
+  .next-steps ol { list-style: none; counter-reset: steps; }
+  .next-steps ol li { counter-increment: steps; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; display: flex; gap: 12px; align-items: flex-start; }
+  .next-steps ol li:last-child { border-bottom: none; }
+  .next-steps ol li::before { content: counter(steps); background: var(--gold); color: #fff; font-weight: 800; font-size: 11px; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  .footer { background: var(--dark); color: #888; font-size: 11px; padding: 24px 40px; margin-top: 48px; line-height: 1.8; }
+  .footer strong { color: #aaa; }
+
+  .data-note { background: #fffbf0; border: 1px solid #f0d080; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #7a6010; margin-top: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <h1>Modish Furnishing</h1>
+      <div class="subtitle">Weekly Social Media Performance Report · GA4 Social Analytics</div>
+      <div class="date-range">13 Jul – 19 Jul 2026</div>
+      <div class="badges" style="margin-top:12px;">
+        <span class="badge">GA4 Social</span>
+        <span class="badge">GA4 · Property 358917952</span>
+        <span class="badge">WoW vs 6 Jul – 12 Jul 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- KPI SUMMARY -->
+  <div class="section-title">KPI Summary — All Social</div>
+  <div class="kpi-grid">
+
+    <div class="kpi-card">
+      <div class="label">Total Sessions</div>
+      <div class="value">12,510</div>
+      <div class="prev">prev: 11,375</div>
+      <div class="wow pos">▲ +10.0% WoW</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="label">Total Users</div>
+      <div class="value">9,643</div>
+      <div class="prev">prev: 8,967</div>
+      <div class="wow pos">▲ +7.5% WoW</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="label">Total Conversions</div>
+      <div class="value">20,259</div>
+      <div class="prev">prev: 19,771</div>
+      <div class="wow pos">▲ +2.5% WoW</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="label">Paid Social Revenue</div>
+      <div class="value">£8,232</div>
+      <div class="prev">prev: £8,948</div>
+      <div class="wow neg">▼ −8.0% WoW</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="label">Organic Social Revenue</div>
+      <div class="value">£0</div>
+      <div class="prev">prev: £0</div>
+      <div class="wow neutral">— N/A (£0 both weeks)</div>
+    </div>
+
+  </div>
+
+  <!-- CHANNEL PERFORMANCE TABLE -->
+  <div class="section-title">Channel Performance — Paid Social vs Organic Social</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Channel / Period</th>
+          <th>Sessions</th>
+          <th>Users</th>
+          <th>Bounce Rate</th>
+          <th>Conversions</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- PAID SOCIAL -->
+        <tr>
+          <td class="channel-label paid">Paid Social — This week</td>
+          <td>5,758</td>
+          <td>4,366</td>
+          <td>0.52%</td>
+          <td>8,661</td>
+          <td>£8,232</td>
+        </tr>
+        <tr>
+          <td class="channel-label" style="color:var(--muted)">Paid Social — Prev week</td>
+          <td style="color:var(--muted)">6,025</td>
+          <td style="color:var(--muted)">4,645</td>
+          <td style="color:var(--muted)">0.68%</td>
+          <td style="color:var(--muted)">9,089</td>
+          <td style="color:var(--muted)">£8,948</td>
+        </tr>
+        <tr class="wow-row">
+          <td style="color:var(--muted2);font-size:12px;">WoW Change</td>
+          <td class="neg">−4.4%</td>
+          <td class="neg">−6.0%</td>
+          <td class="pos">−23.5%</td>
+          <td class="neg">−4.7%</td>
+          <td class="neg">−8.0%</td>
+        </tr>
+
+        <tr style="background:var(--cream); height:6px;"><td colspan="6"></td></tr>
+
+        <!-- ORGANIC SOCIAL -->
+        <tr>
+          <td class="channel-label organic">Organic Social — This week</td>
+          <td>501</td>
+          <td>442</td>
+          <td>0.80%</td>
+          <td>908</td>
+          <td>£0</td>
+        </tr>
+        <tr>
+          <td class="channel-label" style="color:var(--muted)">Organic Social — Prev week</td>
+          <td style="color:var(--muted)">505</td>
+          <td style="color:var(--muted)">440</td>
+          <td style="color:var(--muted)">0.59%</td>
+          <td style="color:var(--muted)">920</td>
+          <td style="color:var(--muted)">£0</td>
+        </tr>
+        <tr class="wow-row">
+          <td style="color:var(--muted2);font-size:12px;">WoW Change</td>
+          <td class="neg">−0.8%</td>
+          <td class="pos">+0.5%</td>
+          <td class="neg">+35.6%</td>
+          <td class="neg">−1.3%</td>
+          <td class="neutral">N/A</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="footnote">* Conversions include all tracked GA4 key events. Revenue reflects purchase value only. Bounce Rate: lower is better — WoW improvement shown as positive (green) when rate decreases.</p>
+
+  <!-- ALL CHANNELS TABLE -->
+  <div class="section-title">All Channel Breakdown — This Week</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Sessions</th>
+          <th>Users</th>
+          <th>Bounce Rate</th>
+          <th>Conversions</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="channel-label paid">Paid Social</td>
+          <td>5,758</td>
+          <td>4,366</td>
+          <td>0.52%</td>
+          <td>8,661</td>
+          <td>£8,232</td>
+        </tr>
+        <tr>
+          <td class="channel-label">Cross-network</td>
+          <td>2,926</td>
+          <td>2,455</td>
+          <td>1.47%</td>
+          <td>4,718</td>
+          <td>£3,123</td>
+        </tr>
+        <tr>
+          <td class="channel-label">Unassigned</td>
+          <td>1,331</td>
+          <td>842</td>
+          <td>88.66%</td>
+          <td>1,123</td>
+          <td>£2,149</td>
+        </tr>
+        <tr>
+          <td class="channel-label">Direct</td>
+          <td>1,001</td>
+          <td>784</td>
+          <td>2.30%</td>
+          <td>2,072</td>
+          <td>£7,446</td>
+        </tr>
+        <tr>
+          <td class="channel-label organic">Organic Social</td>
+          <td>501</td>
+          <td>442</td>
+          <td>0.80%</td>
+          <td>908</td>
+          <td>£0</td>
+        </tr>
+        <tr>
+          <td class="channel-label">Organic Search</td>
+          <td>473</td>
+          <td>353</td>
+          <td>4.02%</td>
+          <td>1,222</td>
+          <td>£3,325</td>
+        </tr>
+        <tr>
+          <td class="channel-label">Paid Search</td>
+          <td>340</td>
+          <td>237</td>
+          <td>3.82%</td>
+          <td>1,077</td>
+          <td>£7,480</td>
+        </tr>
+        <tr>
+          <td class="channel-label">Referral</td>
+          <td>82</td>
+          <td>76</td>
+          <td>1.22%</td>
+          <td>294</td>
+          <td>£810</td>
+        </tr>
+        <tr>
+          <td class="channel-label">AI Assistant</td>
+          <td>64</td>
+          <td>60</td>
+          <td>3.12%</td>
+          <td>122</td>
+          <td>£0</td>
+        </tr>
+        <tr>
+          <td class="channel-label">Organic Shopping</td>
+          <td>20</td>
+          <td>15</td>
+          <td>10.00%</td>
+          <td>47</td>
+          <td>£0</td>
+        </tr>
+        <tr>
+          <td class="channel-label">Paid Other</td>
+          <td>14</td>
+          <td>13</td>
+          <td>0%</td>
+          <td>15</td>
+          <td>£0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="footnote">* Full channel breakdown for week of 13–19 Jul 2026. Social channels highlighted.</p>
+
+  <!-- CHARTS -->
+  <div class="section-title">Channel Comparison — This Week vs Previous Week</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>Sessions by Social Channel</h3>
+      <canvas id="sessionsChart" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Conversions by Social Channel</h3>
+      <canvas id="conversionsChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div class="section-title">Highlights &amp; Recommendations</div>
+  <div class="highlights-grid">
+    <div class="highlight-card wins">
+      <h3>✓ Wins This Week</h3>
+      <ul>
+        <li>Total social sessions up +10.0% WoW (12,510 vs 11,375) — solid growth heading into late July.</li>
+        <li>Total users up +7.5% WoW (9,643 vs 8,967) — new visitor acquisition is tracking well across channels.</li>
+        <li>Total conversions up +2.5% WoW (20,259 vs 19,771), holding steady despite modest softness in individual social channels.</li>
+        <li>Paid Social bounce rate improved sharply: 0.52% vs 0.68% (−23.5%) — visitors arriving from paid social are more engaged than the week before.</li>
+        <li>Organic Social users edged up +0.5% even as sessions dipped slightly — an early signal of visitor quality holding up.</li>
+      </ul>
+    </div>
+    <div class="highlight-card issues">
+      <h3>! Areas to Investigate</h3>
+      <ul>
+        <li>Paid Social revenue down −8.0% WoW (£8,232 vs £8,948) alongside a −4.4% dip in sessions — check AOV and product mix on Meta for the week.</li>
+        <li>Organic Social revenue sat at £0 for a second consecutive week despite 908 conversions — worth auditing UTM tagging and e-commerce event tracking on organic social links.</li>
+        <li>Organic Social bounce rate worsened: 0.80% vs 0.59% (+35.6%) — visitors from organic social are dropping off faster than last week.</li>
+        <li>Unassigned traffic carries an unusually high 88.66% bounce rate on 1,331 sessions — a meaningful volume of unclassified traffic worth investigating for tagging gaps.</li>
+        <li>Native platform activity softened this week (see native social report) — TikTok video views and Pinterest impressions both declined, which may be feeding the Organic Social dip here.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="section-title">Next Steps — Prioritised</div>
+  <div class="next-steps">
+    <ol>
+      <li><strong>Investigate the Paid Social revenue dip.</strong> Pull Meta Ads Manager for 13–19 Jul and compare AOV and product mix against the prior week to isolate the −8.0% drop.</li>
+      <li><strong>Fix Organic Social revenue attribution.</strong> Two straight weeks at £0 despite hundreds of conversions — audit UTM tagging on organic social links and confirm GA4 e-commerce tracking is firing correctly for these sessions.</li>
+      <li><strong>Audit Unassigned traffic tagging.</strong> 1,331 sessions and an 88.66% bounce rate is unusually high — check for missing UTM parameters or dark social traffic that should be reclassified.</li>
+      <li><strong>Address native platform softness.</strong> TikTok video views and Pinterest impressions both declined this week — refresh content cadence and align to the Jul–Aug bed season.</li>
+      <li><strong>Confirm July's influencer activation.</strong> Ensure at least one partnership is live this month with tagged links so its contribution to Paid/Organic Social can be measured in next week's report.</li>
+    </ol>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Data source:</strong> Google Analytics 4 · Property 358917952 &nbsp;|&nbsp;
+  <strong>This period:</strong> 13 Jul 2026 – 19 Jul 2026 &nbsp;|&nbsp;
+  <strong>Comparison period:</strong> 6 Jul 2026 – 12 Jul 2026 &nbsp;|&nbsp;
+  <strong>Currency:</strong> GBP (£) &nbsp;|&nbsp;
+  <strong>Generated:</strong> 20 Jul 2026
+</div>
+
+<script>
+const gold = '#B89C5E';
+const goldLight = '#d9cdb0';
+
+// Sessions chart
+const sessCtx = document.getElementById('sessionsChart').getContext('2d');
+new Chart(sessCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Paid Social', 'Organic Social'],
+    datasets: [
+      { label: '13–19 Jul (This)', data: [5758, 501], backgroundColor: gold, borderRadius: 4 },
+      { label: '6–12 Jul (Prev)', data: [6025, 505], backgroundColor: goldLight, borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { font: { size: 11 } } } },
+    scales: {
+      y: { beginAtZero: true, ticks: { font: { size: 11 } } },
+      x: { ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// Conversions chart
+const convCtx = document.getElementById('conversionsChart').getContext('2d');
+new Chart(convCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Paid Social', 'Organic Social'],
+    datasets: [
+      { label: '13–19 Jul (This)', data: [8661, 908], backgroundColor: gold, borderRadius: 4 },
+      { label: '6–12 Jul (Prev)', data: [9089, 920], backgroundColor: goldLight, borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { font: { size: 11 } } } },
+    scales: {
+      y: { beginAtZero: true, ticks: { font: { size: 11 } } },
+      x: { ticks: { font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>
