@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modish Furnishing — Instagram Giveaway Performance | 13–21 Jul 2026</title>
+<style>
+  :root {
+    --gold: #B89C5E;
+    --cream: #F4F1EE;
+    --dark: #1a1a1a;
+    --muted: #888;
+    --muted2: #666;
+    --positive: #2E7D32;
+    --border: #e5e0da;
+    --card-bg: #fff;
+    --ig: #E1306C;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: var(--cream); color: var(--dark); font-size: 14px; line-height: 1.5; }
+
+  .header { background: var(--dark); color: #fff; padding: 28px 40px; border-bottom: 4px solid var(--gold); }
+  .header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; color: var(--gold); }
+  .header .subtitle { font-size: 13px; color: #ccc; margin-top: 4px; }
+  .header .date-range { font-size: 15px; color: #fff; margin-top: 8px; font-weight: 600; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .badge { background: rgba(184,156,94,0.18); border: 1px solid var(--gold); color: var(--gold); font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 600; letter-spacing: 0.3px; }
+
+  .main { max-width: 1000px; margin: 0 auto; padding: 32px 24px; }
+
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 20px; margin-top: 36px; }
+  .section-title:first-child { margin-top: 0; }
+
+  .post-card { background: var(--card-bg); border-radius: 10px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; }
+  .post-card .post-meta { flex: 1; min-width: 260px; }
+  .post-card .post-meta .handle { font-weight: 700; color: var(--ig); font-size: 14px; }
+  .post-card .post-meta .post-date { font-size: 12px; color: var(--muted); margin: 4px 0 12px; }
+  .post-card .post-meta .caption-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .post-card .post-meta p { font-size: 13px; color: var(--dark); margin-bottom: 8px; }
+  .post-card .post-meta .rules { font-size: 13px; color: var(--dark); padding-left: 18px; margin-bottom: 8px; }
+  .post-card .post-meta .rules li { margin-bottom: 3px; }
+  .post-card .post-meta .link { font-size: 12px; margin-top: 10px; }
+  .post-card .post-meta .link a { color: var(--gold); text-decoration: none; font-weight: 600; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+  .kpi-card { background: var(--card-bg); border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid var(--border); }
+  .kpi-card .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 8px; }
+  .kpi-card .value { font-size: 26px; font-weight: 800; color: var(--dark); line-height: 1; }
+  .kpi-card .note { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  thead tr { background: var(--dark); color: #fff; }
+  thead th { padding: 12px 14px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; white-space: nowrap; }
+  thead th:not(:first-child) { text-align: right; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  td { padding: 11px 14px; font-size: 13px; }
+  td:not(:first-child) { text-align: right; }
+  td.metric-label { font-weight: 700; color: var(--dark); }
+  .footnote { font-size: 11px; color: var(--muted); margin-top: 10px; font-style: italic; }
+
+  .analysis-card { background: var(--card-bg); border-radius: 10px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid var(--border); }
+  .analysis-card h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--positive); margin-bottom: 14px; }
+  .analysis-card ul { list-style: none; }
+  .analysis-card ul li { padding: 7px 0; font-size: 13px; border-bottom: 1px solid var(--border); color: var(--dark); display: flex; gap: 8px; align-items: flex-start; }
+  .analysis-card ul li:last-child { border-bottom: none; }
+  .analysis-card ul li::before { content: "→"; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+  .data-note { background: #fffbf0; border: 1px solid #f0d080; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #7a6010; margin-top: 16px; }
+
+  .footer { background: var(--dark); color: #888; font-size: 11px; padding: 24px 40px; margin-top: 48px; line-height: 1.8; }
+  .footer strong { color: #aaa; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Modish Furnishing</h1>
+  <div class="subtitle">Instagram Giveaway Performance Report</div>
+  <div class="date-range">13 Jul – 21 Jul 2026</div>
+  <div class="badges">
+    <span class="badge">Instagram</span>
+    <span class="badge">Garden Glow Up Giveaway</span>
+    <span class="badge">Post + Channel View</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- POST OVERVIEW -->
+  <div class="section-title">Post Overview</div>
+  <div class="post-card">
+    <div class="post-meta">
+      <div class="handle">@modishfurnishing</div>
+      <div class="post-date">Posted 13 Jul 2026</div>
+      <div class="caption-title">🌿 Garden Glow Up Giveaway ☀️</div>
+      <p>£500 Modish voucher to spend on Garden Lounge sets (Geneva, Paris, Miami). Giveaway ran 13–21 Jul 2026, 11:59 PM BST.</p>
+      <p style="font-weight:700; margin-bottom:4px;">Entry mechanics:</p>
+      <ol class="rules">
+        <li>Follow @modishfurnishings</li>
+        <li>Like the post</li>
+        <li>Comment and tag 2 friends</li>
+        <li>Share to stories for extra entries</li>
+      </ol>
+      <div class="link"><a href="https://www.instagram.com/p/DaurWKTmQUh/?img_index=1" target="_blank">View original post →</a></div>
+    </div>
+  </div>
+
+  <!-- POST METRICS -->
+  <div class="section-title">Post Performance (Live, as of 3 Aug 2026)</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="label">Likes</div>
+      <div class="value">~1,247</div>
+      <div class="note">"Liked by thelambridge and 1,246 others"</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Comments</div>
+      <div class="value">~1.6K</div>
+      <div class="note">Dominated by tag-2-friends entries</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Shares</div>
+      <div class="value">128</div>
+      <div class="note">Story shares (extra entry mechanic)</div>
+    </div>
+  </div>
+  <p class="data-note">Post metrics are live cumulative totals pulled directly from the public post page — they include any activity after the giveaway closed on 21 Jul, so they will run slightly ahead of the windowed channel figures below.</p>
+
+  <!-- CHANNEL METRICS -->
+  <div class="section-title">Instagram Channel Totals — 13–21 Jul 2026 (9-day window)</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric-label">Reach</td>
+          <td>36,383</td>
+        </tr>
+        <tr>
+          <td class="metric-label">Accounts Engaged</td>
+          <td>1,627</td>
+        </tr>
+        <tr>
+          <td class="metric-label">Total Interactions</td>
+          <td>4,801</td>
+        </tr>
+        <tr>
+          <td class="metric-label">Likes</td>
+          <td>1,534</td>
+        </tr>
+        <tr>
+          <td class="metric-label">Comments</td>
+          <td>1,475</td>
+        </tr>
+        <tr>
+          <td class="metric-label">Saves</td>
+          <td>252</td>
+        </tr>
+        <tr>
+          <td class="metric-label">Content Views</td>
+          <td>153,767</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="footnote">* Reach reflects total unique accounts reached across the window (platform aggregate, not summed daily). All other metrics summed across 13–21 Jul 2026 across the full Instagram account, not just this post.</p>
+
+  <!-- FOLLOWER GROWTH -->
+  <div class="section-title">Follower Growth During the Giveaway</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="label">Followers Gained (Full Giveaway)</div>
+      <div class="value" style="color:var(--positive);">+888</div>
+      <div class="note">12,053 (12 Jul) → 12,941 (21 Jul)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Growth Rate</div>
+      <div class="value" style="color:var(--positive);">+7.4%</div>
+      <div class="note">Over the full 9-day giveaway window</div>
+    </div>
+  </div>
+  <p class="data-note">The 21 Jul figure (12,941) was supplied directly, confirmed as the count at giveaway close — this closes the gap the automated weekly snapshot log couldn't reach, since it only captures counts on report-week boundaries (Sundays), not mid-week dates like 21 Jul. It's been added to the snapshot log as a manual entry, distinct from the automated weekly captures.</p>
+
+  <!-- BEFORE / AFTER COMPARISON -->
+  <div class="section-title">Before vs After Comparison</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Snapshot</th>
+          <th>Date</th>
+          <th>Followers</th>
+          <th>Change from Before</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric-label">Before giveaway</td>
+          <td>12 Jul 2026</td>
+          <td>12,053</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="metric-label">During giveaway</td>
+          <td>19 Jul 2026</td>
+          <td>12,591</td>
+          <td style="color:var(--positive); font-weight:700;">+538 (+4.5%)</td>
+        </tr>
+        <tr>
+          <td class="metric-label">Giveaway close</td>
+          <td>21 Jul 2026</td>
+          <td>12,941</td>
+          <td style="color:var(--positive); font-weight:700;">+888 (+7.4%)</td>
+        </tr>
+        <tr>
+          <td class="metric-label">12 days after close</td>
+          <td>2 Aug 2026</td>
+          <td>12,939</td>
+          <td style="color:var(--negative); font-weight:700;">−2 vs 21 Jul (−0.02%)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="data-note"><strong>Key finding:</strong> essentially all of the follower growth from this period happened during the giveaway itself — +888 followers (+7.4%) between 12 Jul and the 21 Jul close. In the 12 days afterward, the account didn't just slow down, it went net flat: 12,939 on 2 Aug vs 12,941 at close, a loss of 2 followers. That's a materially different story from "growth decelerated" — growth effectively stopped the moment the giveaway ended. This is a textbook pattern for "follow to enter" giveaway mechanics: a real spike in followers during the promotion, offset by unfollows afterward from entrants who had no ongoing interest in the brand, netting out to roughly zero incremental growth once the dust settles.</p>
+
+  <!-- ANALYSIS -->
+  <div class="section-title">Analysis</div>
+  <div class="analysis-card">
+    <h3>What the numbers suggest</h3>
+    <ul>
+      <li>The giveaway's live likes (~1,247) account for the large majority of the account's total 9-day likes (1,534) — this post is almost certainly the main engagement driver for the window.</li>
+      <li>The "comment and tag 2 friends" mechanic is a strong structural match for the account's elevated comment volume (1,475) over the same period — most visible replies on the post are exactly this pattern.</li>
+      <li>Story shares (128) as an extra-entry incentive likely contributed meaningfully to the period's reach (36,383) beyond the account's typical organic distribution.</li>
+      <li>The post's comment count (~1.6K) runs ahead of the account-level windowed total (1,475) because the post metric is a live, uncapped cumulative count — some of that activity happened after the giveaway closed on 21 Jul, outside this report's window.</li>
+      <li>The account gained +888 followers (+7.4%) across the full giveaway window (12→21 Jul) — a genuine, sizeable spike directly tied to the "follow to enter" entry requirement.</li>
+      <li>Growth stopped almost entirely once the giveaway closed: the account sat at 12,939 on 2 Aug, effectively unchanged (−2) from the 12,941 recorded at close on 21 Jul, despite 12 days elapsing. This strongly suggests unfollows from giveaway entrants offset any organic growth in that period.</li>
+      <li>Recommendation: this giveaway was highly effective at generating a short-term follower spike and heavy engagement, but it did not produce lasting net follower growth — the entry mechanic likely attracted prize-motivated entrants rather than genuinely interested customers. Future giveaways may benefit from a lighter follow-gate (e.g. weighting entries toward genuine engagement or purchase intent) if durable audience growth is the goal, rather than raw follower count during the promotion.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Sources:</strong> Instagram public post page · Instagram Insights API (Windsor) &nbsp;|&nbsp;
+  <strong>Post date:</strong> 13 Jul 2026 &nbsp;|&nbsp;
+  <strong>Channel window:</strong> 13 Jul – 21 Jul 2026 &nbsp;|&nbsp;
+  <strong>Generated:</strong> 3 Aug 2026
+</div>
+
+</body>
+</html>
