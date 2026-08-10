@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modish Furnishing — Native Social Analytics | 03 Aug – 09 Aug 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f0ede9; color: #1a1a1a; padding: 24px; min-height: 100vh; }
+
+  .header { background: #1a1a1a; border-bottom: 4px solid #B89C5E; padding: 28px 32px; border-radius: 8px 8px 0 0; margin-bottom: 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .header-left h1 { color: #B89C5E; font-size: 22px; font-weight: 700; letter-spacing: 0.03em; }
+  .header-left .subtitle { color: #aaa; font-size: 13px; margin-top: 4px; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .badge { background: #B89C5E; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; }
+  .date-range { color: #ccc; font-size: 13px; }
+
+  .content { background: #fff; border-radius: 0 0 8px 8px; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+
+  .section-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #B89C5E; display: flex; align-items: center; gap: 8px; }
+  .section-title i { color: #B89C5E; font-size: 18px; }
+  .section-block { margin-bottom: 32px; }
+
+  .platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .platform-card { background: #f5f5f3; border: 1px solid #ddd; border-radius: 8px; padding: 18px 20px; }
+  .platform-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .platform-card-header i { font-size: 22px; }
+  .platform-card-header .pname { font-size: 14px; font-weight: 700; color: #1a1a1a; }
+  .ig-color { color: #E1306C; }
+  .fb-color { color: #1877F2; }
+  .pin-color { color: #E60023; }
+  .tik-color { color: #010101; }
+  .platform-metric { margin-bottom: 10px; }
+  .platform-metric .metric-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .platform-metric .metric-value { font-size: 24px; font-weight: 700; color: #1a1a1a; line-height: 1.1; }
+  .platform-metric .metric-prev { font-size: 12px; color: #888; margin-top: 2px; }
+  .platform-metric .metric-change { font-size: 12px; font-weight: 700; margin-top: 1px; }
+  .positive { color: #2E7D32; }
+  .negative { color: #C62828; }
+  .neutral { color: #888; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+  .kpi-card { background: #f5f5f3; border: 1px solid #ddd; border-radius: 6px; padding: 14px 16px; }
+  .kpi-card .kpi-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .kpi-card .kpi-value { font-size: 22px; font-weight: 700; color: #1a1a1a; line-height: 1.1; }
+  .kpi-card .kpi-prev { font-size: 11px; color: #999; margin-top: 3px; }
+  .kpi-card .kpi-change { font-size: 12px; font-weight: 700; margin-top: 2px; }
+
+  .chart-container { position: relative; height: 300px; margin: 8px 0; }
+
+  .highlights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px) { .highlights-grid { grid-template-columns: 1fr; } .platform-grid { grid-template-columns: 1fr 1fr; } }
+  .highlight-card { background: #f5f5f3; border: 1px solid #ddd; border-radius: 8px; padding: 18px; }
+  .highlight-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .highlight-card h4.worked { color: #2E7D32; }
+  .highlight-card h4.improve { color: #C62828; }
+  .highlight-card ul { list-style: none; padding: 0; }
+  .highlight-card ul li { font-size: 13px; color: #444; padding: 5px 0; border-bottom: 1px solid #e8e8e8; line-height: 1.45; }
+  .highlight-card ul li:last-child { border-bottom: none; }
+
+  .footer { background: #1a1a1a; color: #aaa; font-size: 11px; padding: 18px 32px; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between; }
+  .footer strong { color: #B89C5E; }
+
+  .na-text { color: #bbb; font-size: 13px; font-style: italic; }
+  .data-note { background: #fffbf0; border: 1px solid #f0d080; border-radius: 6px; padding: 8px 14px; font-size: 11px; color: #7a6010; margin-top: 12px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>Modish Furnishing</h1>
+    <div class="subtitle">Weekly Social Media Performance Report · Native Analytics</div>
+  </div>
+  <div class="header-right">
+    <span class="date-range">Mon 03 Aug – Sun 09 Aug 2026</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- PLATFORM SNAPSHOT -->
+  <div class="section-block">
+    <div class="section-title">
+      <i class="ti ti-layout-grid"></i> Platform Snapshot
+    </div>
+    <div class="platform-grid">
+
+      <!-- Instagram -->
+      <div class="platform-card">
+        <div class="platform-card-header">
+          <i class="ti ti-brand-instagram ig-color"></i>
+          <span class="pname">Instagram</span>
+        </div>
+        <div class="platform-metric">
+          <div class="metric-label">Followers</div>
+          <div class="metric-value">12,977</div>
+          <div class="metric-prev">prev: 12,939</div>
+          <div class="metric-change positive">▲ +0.3%</div>
+        </div>
+        <div class="platform-metric">
+          <div class="metric-label">Content Views</div>
+          <div class="metric-value">110,438</div>
+          <div class="metric-prev">prev: 106,375</div>
+          <div class="metric-change positive">▲ +3.8%</div>
+        </div>
+      </div>
+
+      <!-- Facebook -->
+      <div class="platform-card">
+        <div class="platform-card-header">
+          <i class="ti ti-brand-facebook fb-color"></i>
+          <span class="pname">Facebook</span>
+        </div>
+        <div class="platform-metric">
+          <div class="metric-label">Post Engagements</div>
+          <div class="metric-value">6,633</div>
+          <div class="metric-prev">prev: 6,244</div>
+          <div class="metric-change positive">▲ +6.2%</div>
+        </div>
+        <div class="platform-metric">
+          <div class="metric-label">Page Visits</div>
+          <div class="metric-value">898</div>
+          <div class="metric-prev">prev: 951</div>
+          <div class="metric-change negative">▼ −5.6%</div>
+        </div>
+      </div>
+
+      <!-- Pinterest -->
+      <div class="platform-card">
+        <div class="platform-card-header">
+          <i class="ti ti-brand-pinterest pin-color"></i>
+          <span class="pname">Pinterest</span>
+        </div>
+        <div class="platform-metric">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">97,485</div>
+          <div class="metric-prev">prev: 110,556</div>
+          <div class="metric-change negative">▼ −11.8%</div>
+        </div>
+        <div class="platform-metric">
+          <div class="metric-label">Followers</div>
+          <div class="metric-value">183</div>
+          <div class="metric-prev">prev: 182</div>
+          <div class="metric-change positive">▲ +0.5%</div>
+        </div>
+      </div>
+
+      <!-- TikTok -->
+      <div class="platform-card">
+        <div class="platform-card-header">
+          <i class="ti ti-brand-tiktok tik-color"></i>
+          <span class="pname">TikTok</span>
+        </div>
+        <div class="platform-metric">
+          <div class="metric-label">Video Views</div>
+          <div class="metric-value">~4,700</div>
+          <div class="metric-prev">prev: 4,100</div>
+          <div class="metric-change positive">▲ +14.6%</div>
+        </div>
+        <div class="platform-metric">
+          <div class="metric-label">Followers</div>
+          <div class="metric-value">1,536</div>
+          <div class="metric-prev">prev: 1,532</div>
+          <div class="metric-change positive">▲ +0.3%</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INSTAGRAM SECTION -->
+  <div class="section-block">
+    <div class="section-title">
+      <i class="ti ti-brand-instagram ig-color"></i> Instagram Insights
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Followers</div>
+        <div class="kpi-value">12,977</div>
+        <div class="kpi-prev">prev: 12,939</div>
+        <div class="kpi-change positive">▲ +0.3%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Reach</div>
+        <div class="kpi-value">24,216</div>
+        <div class="kpi-prev">prev: 24,372</div>
+        <div class="kpi-change negative">▼ −0.6%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Content Views</div>
+        <div class="kpi-value">110,438</div>
+        <div class="kpi-prev">prev: 106,375</div>
+        <div class="kpi-change positive">▲ +3.8%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Accounts Engaged</div>
+        <div class="kpi-value">110</div>
+        <div class="kpi-prev">prev: 143</div>
+        <div class="kpi-change negative">▼ −23.1%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Interactions</div>
+        <div class="kpi-value">142</div>
+        <div class="kpi-prev">prev: 216</div>
+        <div class="kpi-change negative">▼ −34.3%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Likes</div>
+        <div class="kpi-value">58</div>
+        <div class="kpi-prev">prev: 91</div>
+        <div class="kpi-change negative">▼ −36.3%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Comments</div>
+        <div class="kpi-value">7</div>
+        <div class="kpi-prev">prev: 30</div>
+        <div class="kpi-change negative">▼ −76.7%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Saves</div>
+        <div class="kpi-value">40</div>
+        <div class="kpi-prev">prev: 27</div>
+        <div class="kpi-change positive">▲ +48.1%</div>
+      </div>
+    </div>
+    <p class="data-note">* Reach = total profile reach (unique accounts reached) summed across the week. Content Views = total times content was played or displayed (posts, reels, stories). Followers WoW sourced from weekly snapshot tracking, not the live-only connector field.</p>
+  </div>
+
+  <!-- FACEBOOK SECTION -->
+  <div class="section-block">
+    <div class="section-title">
+      <i class="ti ti-brand-facebook fb-color"></i> Facebook Insights
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Page Fans</div>
+        <div class="kpi-value">9,917</div>
+        <div class="kpi-prev">prev: 9,892</div>
+        <div class="kpi-change positive">▲ +0.3%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Post Engagements</div>
+        <div class="kpi-value">6,633</div>
+        <div class="kpi-prev">prev: 6,244</div>
+        <div class="kpi-change positive">▲ +6.2%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Organic Impressions</div>
+        <div class="kpi-value">2,110</div>
+        <div class="kpi-prev">prev: 2,290</div>
+        <div class="kpi-change negative">▼ −7.9%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Post Impressions Organic</div>
+        <div class="kpi-value">721</div>
+        <div class="kpi-prev">prev: 811</div>
+        <div class="kpi-change negative">▼ −11.1%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Page Visits</div>
+        <div class="kpi-value">898</div>
+        <div class="kpi-prev">prev: 951</div>
+        <div class="kpi-change negative">▼ −5.6%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PINTEREST SECTION -->
+  <div class="section-block">
+    <div class="section-title">
+      <i class="ti ti-brand-pinterest pin-color"></i> Pinterest Organic
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Impressions</div>
+        <div class="kpi-value">97,485</div>
+        <div class="kpi-prev">prev: 110,556</div>
+        <div class="kpi-change negative">▼ −11.8%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Pin Clicks</div>
+        <div class="kpi-value">1,072</div>
+        <div class="kpi-prev">prev: 1,258</div>
+        <div class="kpi-change negative">▼ −14.8%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Outbound Clicks</div>
+        <div class="kpi-value">638</div>
+        <div class="kpi-prev">prev: 749</div>
+        <div class="kpi-change negative">▼ −14.8%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Saves</div>
+        <div class="kpi-value">40</div>
+        <div class="kpi-prev">prev: 48</div>
+        <div class="kpi-change negative">▼ −16.7%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Followers</div>
+        <div class="kpi-value">183</div>
+        <div class="kpi-prev">prev: 182</div>
+        <div class="kpi-change positive">▲ +0.5%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIKTOK SECTION -->
+  <div class="section-block">
+    <div class="section-title">
+      <i class="ti ti-brand-tiktok tik-color"></i> TikTok Organic
+    </div>
+    <p class="na-text" style="margin-bottom:12px;">Windsor's tiktok_organic connector still returns "no account found" — the figures below were manually supplied for this week. WoW is calculated against last week's manually-entered TikTok figures (27 Jul–02 Aug report), a genuine 7-day comparison.</p>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Followers</div>
+        <div class="kpi-value">1,536</div>
+        <div class="kpi-prev">prev: 1,532</div>
+        <div class="kpi-change positive">▲ +0.3%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Video Views</div>
+        <div class="kpi-value">~4,700</div>
+        <div class="kpi-prev">prev: 4,100</div>
+        <div class="kpi-change positive">▲ +14.6%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Profile Views</div>
+        <div class="kpi-value">32</div>
+        <div class="kpi-prev">prev: 35</div>
+        <div class="kpi-change negative">▼ −8.6%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Likes</div>
+        <div class="kpi-value">25</div>
+        <div class="kpi-prev">prev: 27</div>
+        <div class="kpi-change negative">▼ −7.4%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Comments</div>
+        <div class="kpi-value">5</div>
+        <div class="kpi-prev">prev: 1</div>
+        <div class="kpi-change positive">▲ +400%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Shares</div>
+        <div class="kpi-value">2</div>
+        <div class="kpi-prev">prev: 1</div>
+        <div class="kpi-change positive">▲ +100%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT VIEWS CHART -->
+  <div class="section-block">
+    <div class="section-title">
+      <i class="ti ti-chart-bar"></i> Content Views — This Week vs Prev Week
+    </div>
+    <div class="chart-container">
+      <canvas id="viewsChart"></canvas>
+    </div>
+    <p class="data-note">TikTok video views (~4,700) are compared against last week's manually-entered figure (4,100) since the connector is still disconnected — see data note above.</p>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div class="section-block">
+    <div class="section-title">
+      <i class="ti ti-bulb"></i> Highlights &amp; Recommendations
+    </div>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <h4 class="worked">✓ What Worked</h4>
+        <ul>
+          <li>Instagram content views up +3.8% WoW (110,438 vs 106,375) — reach into feeds and reels is growing even as raw engagement actions dip.</li>
+          <li>Instagram saves jumped +48.1% (40 vs 27) — a strong signal that recent content is resonating enough for people to want to come back to it.</li>
+          <li>Facebook post engagements up +6.2% (6,633 vs 6,244) and page fans essentially flat-to-up (+0.3%) — steady organic performance without a paid boost.</li>
+          <li>Follower growth is positive across every platform this week: Instagram +0.3% (12,977), Pinterest +0.5% (183), TikTok +0.3% (1,536).</li>
+          <li>Pinterest saves held up relatively well versus the drop in impressions (40 vs 48, −16.7%) — a smaller decline than the −11.8% fall in impressions, suggesting the content that is being seen still has some pull.</li>
+          <li>TikTok video views up +14.6% WoW (~4,700 vs 4,100) — a genuine rebound after last week's −14.6% dip. Comments and shares also grew off a small base (+400% and +100% respectively), a good early signal even at low volume.</li>
+        </ul>
+      </div>
+      <div class="highlight-card">
+        <h4 class="improve">! Areas to Improve</h4>
+        <ul>
+          <li>TikTok profile views (−8.6%) and likes (−7.4%) both dipped slightly even as video views rose — views aren't yet converting into profile visits or likes at the same rate. Worth watching whether this holds next week.</li>
+          <li>Pinterest is down across the board now that the connector is back: impressions −11.8% (97,485 vs 110,556), pin clicks −14.8%, outbound clicks −14.8%. This lines up with garden season tapering — pivot pinning toward bedroom and early-autumn dining content per the seasonal calendar.</li>
+          <li>Instagram engagement is down across the board: accounts engaged −23.1%, total interactions −34.3%, likes −36.3%, and comments −76.7%. Content views held up, so this looks like a format or hook problem rather than a reach problem — review what drove stronger interaction in the 27 Jul–02 Aug week.</li>
+          <li>Facebook organic impressions down −7.9% and post impressions organic down −11.1% — worth checking posting frequency and whether recent posts leaned too promotional.</li>
+          <li>Facebook page visits down −5.6% (898 vs 951) — pair upcoming posts with clearer profile/bio CTAs to drive more page-level exploration.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div><strong>Sources:</strong> Instagram API · Facebook Page Insights API · Pinterest API · TikTok (manually reported — connector unavailable)</div>
+  <div><strong>This period:</strong> 03 Aug – 09 Aug 2026 &nbsp;|&nbsp; <strong>Comparison:</strong> 27 Jul – 02 Aug 2026</div>
+  <div><strong>Generated:</strong> 10 Aug 2026 (TikTok section updated same day) &nbsp;|&nbsp; <strong>Note:</strong> Follower WoW is sourced from weekly snapshot tracking, not live-only connector data. TikTok engagement metrics are manually entered both this week and last, compared as a genuine 7-day WoW against the 27 Jul–02 Aug report.</div>
+</div>
+
+<script>
+const gold = '#B89C5E';
+const goldLight = '#d9cdb0';
+const ig = '#E1306C';
+
+const pin = '#E60023';
+const tik = '#010101';
+
+const viewsCtx = document.getElementById('viewsChart').getContext('2d');
+new Chart(viewsCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Instagram\nContent Views', 'Pinterest\nImpressions', 'TikTok\nVideo Views'],
+    datasets: [
+      {
+        label: '03–09 Aug (This week)',
+        data: [110438, 97485, 4700],
+        backgroundColor: [ig, pin, tik],
+        borderRadius: 5
+      },
+      {
+        label: '27 Jul–02 Aug (Prev week)',
+        data: [106375, 110556, 4100],
+        backgroundColor: ['rgba(225,48,108,0.35)', 'rgba(230,0,35,0.35)', 'rgba(1,1,1,0.25)'],
+        borderRadius: 5
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { font: { size: 12 } } },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toLocaleString()
+        }
+      }
+    },
+    scales: {
+      y: { beginAtZero: true, ticks: { font: { size: 11 }, callback: v => v >= 1000 ? (v/1000)+'k' : v } },
+      x: { ticks: { font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>
